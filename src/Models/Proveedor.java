@@ -9,7 +9,7 @@ public class Proveedor {
 	String idProveedor;
 	String nameProveedor;
 	static List<Proveedor> listaProveedores= new ArrayList<Proveedor>();
-        static Conexion conex;//
+        static Conexion conex;//conexion
         
 	public Proveedor( String idProveedor, String nameProveedor) {
             this.idProveedor = idProveedor;
