@@ -1,12 +1,66 @@
 package Models;
+import conexion.Conexion;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Sucursal {
 	String idSucursal;
 	String nombreSucursal;
-	
-	public Sucursal() {
-		super();
+	static List<Sucursal> listaSucursales= new ArrayList<Sucursal>();
+        static Conexion conex;//
+        
+	public Sucursal(String idSucursal, String nombreSucursal) {
+            this.idSucursal = idSucursal;
+            this.nombreSucursal = nombreSucursal;
+
 	}
+        public Sucursal(int id ) {
+            this.conex = new Conexion();//
+            Statement st;//
+            ResultSet rs;//
+            try {
+                st = conex.con.createStatement();
+                rs = st.executeQuery("select * from sucursal where id='"+id+"'");
+                this.idSucursal=rs.getString("idSucursal");
+                this.nombreSucursal=rs.getString("nombreSucursal");
+                conex.con.close();
+
+            } catch (Exception e){
+                System.out.println("Error");
+            }
+	}
+        
+        public void updateSucursal( String id, String nombre){
+            id= id==null?this.idSucursal:id;
+            nombre= nombre==null?this.nombreSucursal:nombre;
+            Statement st;
+            try {
+                st = conex.con.createStatement();
+                st.executeQuery("update sucursal set idSucursal='"+id+"' nombreSucursal='"+nombre+"'");
+                conex.con.close();
+
+            } catch (Exception e){
+                System.out.println("Error");
+            }
+        }
+    
+        public static void listarSucursal(){
+            Statement st;
+            ResultSet rs;
+            try {
+                st = conex.con.createStatement();
+                rs = st.executeQuery("select * from sucursal");
+                while(rs.next()) {
+                    listaSucursales.add(new Sucursal(rs.getString("idSucursal"),rs.getString("nombreSucursal")));
+
+                }
+                conex.con.close();
+            } catch (Exception e){
+                System.out.println("Error");
+            }
+        }
 	
 	public String getIdSucursal() {
 		return idSucursal;
