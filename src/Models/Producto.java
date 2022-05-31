@@ -9,7 +9,7 @@ public class Producto {
     String nameProducto;
     String fechaIngreso;
     String idProveedor;
-    static List<Producto> listaProductos= new ArrayList<Producto>();
+    public static List<Producto> listaProductos= new ArrayList<Producto>();
     static Conexion conex;//
     
     public Producto(String idProducto, String nameProducto, String fechaIngreso, String idProveedor) {
@@ -17,10 +17,15 @@ public class Producto {
         this.nameProducto = nameProducto;
         this.fechaIngreso = fechaIngreso;
         this.idProveedor = idProveedor;
+        
+    }
+
+    public Producto() {
+        this.conex = new Conexion();//
     }
     
     public Producto(int id) {
-        this.conex = new Conexion();//
+        
         Statement st;//
         ResultSet rs;//
         try {
@@ -33,7 +38,7 @@ public class Producto {
             conex.con.close();
 
         } catch (Exception e){
-            System.out.println("Error");
+            System.out.println(e);
         }
     }
 
@@ -48,7 +53,7 @@ public class Producto {
             conex.con.close();
 
         } catch (Exception e){
-            System.out.println("Error");
+            System.out.println(e);
         }
     }
     
@@ -64,7 +69,7 @@ public class Producto {
             }
             conex.con.close();
         } catch (Exception e){
-            System.out.println("Error");
+            System.out.println(e);
         }
     }
 
