@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 public class Conexion {
-    public Connection con;
+    static public Connection con;
     Statement st;
     public ResultSet rs;
 	
@@ -25,21 +25,15 @@ public class Conexion {
             System.out.println(e);
         }
     }
-    /*
-    public static void main(String[] args) {
-        Conexion cn = new Conexion();
-        Statement st;
-        ResultSet rs;
-        try {
-            st = cn.con.createStatement();
-            rs = st.executeQuery("select * from producto");
-            while(rs.next()) {
-                System.out.println(rs.getString("idProducto")+" "+rs.getString("nameProducto")+" "+rs.getString("fechaIngreso")+" "+rs.getString("idProveedor"));
-            }
-            cn.con.close();
-        } catch (Exception e){
-            System.out.println("Error");
+    public void closeConexion(){
+        try
+        { 
+            System.out.println("Conexion close");  
+            con.close();
         }
-                
-    }*/
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
 }

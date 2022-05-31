@@ -10,7 +10,7 @@ public class Producto {
     String fechaIngreso;
     String idProveedor;
     public static List<Producto> listaProductos= new ArrayList<Producto>();
-    static Conexion conex;//
+    
     
     public Producto(String idProducto, String nameProducto, String fechaIngreso, String idProveedor) {
         this.idProducto = idProducto;
@@ -19,23 +19,19 @@ public class Producto {
         this.idProveedor = idProveedor;
         
     }
-
-    public Producto() {
-        this.conex = new Conexion();//
-    }
-    
-    public Producto(int id) {
+   
+    public Producto(String id) {
         
         Statement st;//
         ResultSet rs;//
         try {
-            st = conex.con.createStatement();
-            rs = st.executeQuery("select * from producto where id='"+id+"'");
+            st = Conexion.con.createStatement();
+            rs = st.executeQuery("select * from producto where idProducto='"+id+"'");
             this.idProducto=rs.getString("idProducto");
             this.nameProducto=rs.getString("nameProducto");
             this.fechaIngreso=rs.getString("fechaIngreso");
             this.idProveedor=rs.getString("idProveedor");
-            conex.con.close();
+            
 
         } catch (Exception e){
             System.out.println(e);
@@ -48,9 +44,9 @@ public class Producto {
         fechI= fechI==null?this.fechaIngreso:fechI;
         Statement st;
         try {
-            st = conex.con.createStatement();
+            st = Conexion.con.createStatement();
             st.executeQuery("update producto set idProducto='"+id+"' nameProducto='"+nombre+"' fechaIngreso='"+fechI+"'");
-            conex.con.close();
+            
 
         } catch (Exception e){
             System.out.println(e);
@@ -61,13 +57,13 @@ public class Producto {
         Statement st;
         ResultSet rs;
         try {
-            st = conex.con.createStatement();
+            st = Conexion.con.createStatement();
             rs = st.executeQuery("select * from producto");
             while(rs.next()) {
                 listaProductos.add(new Producto(rs.getString("idProducto"),rs.getString("nameProducto"),rs.getString("fechaIngreso"),rs.getString("idProveedor")));
                 
             }
-            conex.con.close();
+            
         } catch (Exception e){
             System.out.println(e);
         }

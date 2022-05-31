@@ -8,24 +8,25 @@ import java.util.ArrayList;
 public class Sucursal {
 	String idSucursal;
 	String nombreSucursal;
-	static List<Sucursal> listaSucursales= new ArrayList<Sucursal>();
-        static Conexion conex;//
+	public static List<Sucursal> listaSucursales;
+       
         
+     
 	public Sucursal(String idSucursal, String nombreSucursal) {
             this.idSucursal = idSucursal;
             this.nombreSucursal = nombreSucursal;
 
 	}
         public Sucursal(int id ) {
-            this.conex = new Conexion();//
+            
             Statement st;//
             ResultSet rs;//
             try {
-                st = conex.con.createStatement();
+                st = Conexion.con.createStatement();
                 rs = st.executeQuery("select * from sucursal where id='"+id+"'");
                 this.idSucursal=rs.getString("idSucursal");
                 this.nombreSucursal=rs.getString("nombreSucursal");
-                conex.con.close();
+                
 
             } catch (Exception e){
                 System.out.println("Error");
@@ -37,9 +38,9 @@ public class Sucursal {
             nombre= nombre==null?this.nombreSucursal:nombre;
             Statement st;
             try {
-                st = conex.con.createStatement();
+                st = Conexion.con.createStatement();
                 st.executeQuery("update sucursal set idSucursal='"+id+"' nombreSucursal='"+nombre+"'");
-                conex.con.close();
+             
 
             } catch (Exception e){
                 System.out.println("Error");
@@ -47,16 +48,17 @@ public class Sucursal {
         }
     
         public static void listarSucursal(){
+            listaSucursales= new ArrayList<Sucursal>();
             Statement st;
             ResultSet rs;
             try {
-                st = conex.con.createStatement();
+                st = Conexion.con.createStatement();
                 rs = st.executeQuery("select * from sucursal");
                 while(rs.next()) {
                     listaSucursales.add(new Sucursal(rs.getString("idSucursal"),rs.getString("nombreSucursal")));
 
                 }
-                conex.con.close();
+                
             } catch (Exception e){
                 System.out.println("Error");
             }

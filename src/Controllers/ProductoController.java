@@ -1,5 +1,7 @@
 package Controllers;
 import Models.Producto;
+import Models.Stock;
+import Models.Sucursal;
 import Views.userinterface.CVSadmin.ListaProductos;
 import javax.swing.table.DefaultTableModel;
 
@@ -10,8 +12,8 @@ public class ProductoController {
     }
     
     public void llenarTabla(){
-        
         Producto.listarProductos();
+        
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Nombre");
