@@ -1,5 +1,6 @@
 package Controllers;
 import Models.Producto;
+import Models.Proveedor;
 import Models.Stock;
 import Models.Sucursal;
 import Views.userinterface.CVSadmin.ListaProductos;
@@ -30,15 +31,25 @@ public class StockController {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Nombre");
-        model.addColumn("Fecha de ingreso");
-        model.addColumn("Proveedor");
+        model.addColumn("Cantidad");
+        model.addColumn("Precio");
+        
+        
         
         
         for( Stock s: Stock.listaStocks){
-            model.addRow(new Object[]{s.getProducto().getIdProducto(),s.getProducto().getNameProducto(),s.getProducto().getFechaIngreso(),s.getProducto().getIdProveedor()});
+            String prov = "" ;/*
+            for(Proveedor p: Proveedor.listaProveedores){
+                if(p.getIdProveedor().equals(s.getProducto().getIdProveedor())){
+                    prov = p.getNameProveedor();
+                    break;
+                }
+            }*/
+            model.addRow(new Object[]{s.getProducto().getIdProducto(),s.getProducto().getNameProducto(),s.getCantidad(),s.getPrecioProducto()});
         }
         
         listProd.productsTable.setModel(model);
         
     }
+    
 }

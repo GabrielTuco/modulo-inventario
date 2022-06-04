@@ -22,9 +22,10 @@ public class main {
                 MainJFrame menu = new MainJFrame();
                 menu.setVisible(true);
                 menu.setLocationRelativeTo(null);
-                ProductoController prodCon=new ProductoController(menu.adminWorkArea);
-                SucursalController sucCon= new SucursalController(menu.adminWorkArea);
                 StockController stoCon = new StockController(menu.adminWorkArea);
+                ProductoController prodCon=new ProductoController(menu.adminWorkArea,stoCon);
+                SucursalController sucCon= new SucursalController(menu.adminWorkArea);
+                
                 stoCon.llenarTabla();
                 sucCon.llenarOpciones();
                 menu.addWindowListener(new WindowAdapter() {
@@ -40,9 +41,4 @@ public class main {
         
         
     }
-    protected void finalize() {  
-        System.out.print("Destroyed ");  
-    } 
-
-    
 }

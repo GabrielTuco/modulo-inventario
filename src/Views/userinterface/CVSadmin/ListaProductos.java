@@ -2,7 +2,11 @@ package Views.userinterface.CVSadmin;
 
 
 import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 /**
  *
@@ -16,6 +20,7 @@ public class ListaProductos extends javax.swing.JPanel {
         initComponents();
        
         this.userProcessContainer = userProcessContainer;
+        BotaddProduct.setBorder(new RoundedBorder(10));
        
     }
     
@@ -31,6 +36,8 @@ public class ListaProductos extends javax.swing.JPanel {
         storeJComboBox = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         productsTable = new javax.swing.JTable();
+        BotaddProduct = new javax.swing.JButton();
+        addSucursal = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(7, 7, 32));
 
@@ -54,17 +61,17 @@ public class ListaProductos extends javax.swing.JPanel {
         productsTable.setForeground(new java.awt.Color(0, 0, 0));
         productsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Precio", "Stock", "Proveedor"
+                "ID", "Nombre", "Precio", "Stock"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -78,32 +85,48 @@ public class ListaProductos extends javax.swing.JPanel {
         productsTable.setSelectionForeground(new java.awt.Color(235, 237, 255));
         jScrollPane1.setViewportView(productsTable);
 
+        BotaddProduct.setBackground(new java.awt.Color(243, 44, 44));
+        BotaddProduct.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        BotaddProduct.setForeground(new java.awt.Color(255, 255, 255));
+        BotaddProduct.setText("AGREGAR");
+
+        addSucursal.setText("+");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(174, 174, 174)
+                .addGap(81, 81, 81)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 70, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(168, 168, 168)
+                        .addGap(135, 135, 135)
                         .addComponent(storeJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addSucursal)
+                        .addGap(17, 17, 17))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(166, Short.MAX_VALUE))))
+                        .addComponent(BotaddProduct)
+                        .addGap(363, 363, 363))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(storeJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                .addGap(250, 250, 250))
+                    .addComponent(storeJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addSucursal))
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(BotaddProduct)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleParent(jScrollPane1);
@@ -115,10 +138,39 @@ public class ListaProductos extends javax.swing.JPanel {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton BotaddProduct;
+    public javax.swing.JButton addSucursal;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable productsTable;
     public javax.swing.JComboBox storeJComboBox;
     // End of variables declaration//GEN-END:variables
-    
+    private static class RoundedBorder implements Border {
+
+    private int radius;
+
+
+    RoundedBorder(int radius) {
+        this.radius = radius;
+    }
+
+
+    public Insets getBorderInsets(Component c) {
+        return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
+    }
+
+
+    public boolean isBorderOpaque() {
+        return true;
+    }
+
+
+    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+        g.drawRoundRect(x, y, width-1, height-1, radius, radius);
+    }
+    }
+
 }
+
+
+

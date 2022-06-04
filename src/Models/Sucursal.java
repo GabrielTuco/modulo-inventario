@@ -1,5 +1,6 @@
 package Models;
 import conexion.Conexion;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
@@ -63,7 +64,21 @@ public class Sucursal {
                 System.out.println("Error");
             }
         }
-	
+	public static void agregarSucursal(String idSucursal,String nombreSucursal){
+            PreparedStatement ps;
+        
+            try {
+                ps = Conexion.con.prepareStatement("insert into sucursal(idSucursal, nombreSucursal) values(?,?)");
+                ps.setString(1, idSucursal);
+                ps.setString(2, nombreSucursal);
+                ps.executeUpdate();
+                
+
+            } catch (Exception e){
+                System.out.println(e);
+            }
+        }
+        
 	public String getIdSucursal() {
 		return idSucursal;
 	}

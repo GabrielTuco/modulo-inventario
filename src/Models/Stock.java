@@ -1,5 +1,6 @@
 package Models;
 import conexion.Conexion;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
@@ -20,21 +21,22 @@ public class Stock {
             this.cantidad = cantidad;
             this.idSucursal = idSucursal;
         }
-            /*
-        public void updateStock( String id , float amount , int price){
-            id= id==null?this.idProducto:id;
-            amount= amount==0.00?this.precioProducto:amount;
-            price= price==0?this.cantidad:price;
-            Statement st;
+            
+        public static void updateStock( String idProduc, String idSucur, int cantidad){
+            
+            PreparedStatement ps;
             try {
-                st = Conexion.con.createStatement();
-                st.executeQuery("update stock set cantidad='"+amount+"' precioProducto='"+price+"'");
+                ps = Conexion.con.prepareStatement("update stock set cantidad=? where idProducto=? AND idSucursal=?");
+                ps.setInt(1, cantidad);
+                ps.setString(2, idProduc);
+                ps.setString(3, idSucur);
+                ps.executeUpdate();
                 
 
             } catch (Exception e){
-                System.out.println("Error");
+                System.out.println(e);
             }
-        }*/
+        }
     
         public static void listarStockBySucursal(String idSuc){
             listaStocks= new ArrayList<Stock>();
@@ -53,6 +55,21 @@ public class Stock {
                 System.out.println("Error stock");
             }
         }
+        public static void agregarStock(String idProducto,Float precioProducto, int cantidad, String idSucursal){
+            PreparedStatement ps;
+        
+            try {
+                ps = Conexion.con.prepareStatement("insert into stock(idProducto, precioProducto, cantidad,idSucursal) values(?,?,?,?)");
+                ps.setString(1, idProducto);
+                ps.setFloat(2, precioProducto);
+                ps.setInt(3, cantidad);
+                ps.setString(4, idSucursal);
+                ps.executeUpdate();
+
+            } catch (Exception e){
+                System.out.println(e);
+            }
+        }
         
 	public Producto getProducto() {
 		return producto;
@@ -60,9 +77,7 @@ public class Stock {
 	public float getPrecioProducto() {
 		return precioProducto;
 	}
-	public void getPrecioProducto(float precioProducto) {
-		this.precioProducto = precioProducto;
-	}
+	
 	public int getCantidad() {
 		return cantidad;
 	}
