@@ -142,7 +142,7 @@ public class ProductoController {
                     break;
                 }
             }
-            System.out.println(idProd);
+            
             Stock.agregarStock(idProd, Float.valueOf(precio), Integer.parseInt(stock), Sucursal.listaSucursales.get(listProd.storeJComboBox.getSelectedIndex()).getIdSucursal());
         }
         

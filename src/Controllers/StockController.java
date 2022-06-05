@@ -16,7 +16,7 @@ public class StockController {
             public void itemStateChanged(ItemEvent event) {
                 if (event.getStateChange() == ItemEvent.SELECTED) {
                    llenarTabla();
-                   // do something with object
+                   
                 }
             } 
         });
@@ -38,13 +38,6 @@ public class StockController {
         
         
         for( Stock s: Stock.listaStocks){
-            String prov = "" ;/*
-            for(Proveedor p: Proveedor.listaProveedores){
-                if(p.getIdProveedor().equals(s.getProducto().getIdProveedor())){
-                    prov = p.getNameProveedor();
-                    break;
-                }
-            }*/
             model.addRow(new Object[]{s.getProducto().getIdProducto(),s.getProducto().getNameProducto(),s.getCantidad(),s.getPrecioProducto()});
         }
         

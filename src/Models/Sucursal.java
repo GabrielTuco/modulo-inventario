@@ -10,28 +10,11 @@ public class Sucursal {
 	String idSucursal;
 	String nombreSucursal;
 	public static List<Sucursal> listaSucursales;
-       
         
-     
 	public Sucursal(String idSucursal, String nombreSucursal) {
             this.idSucursal = idSucursal;
             this.nombreSucursal = nombreSucursal;
 
-	}
-        public Sucursal(int id ) {
-            
-            Statement st;//
-            ResultSet rs;//
-            try {
-                st = Conexion.con.createStatement();
-                rs = st.executeQuery("select * from sucursal where id='"+id+"'");
-                this.idSucursal=rs.getString("idSucursal");
-                this.nombreSucursal=rs.getString("nombreSucursal");
-                
-
-            } catch (Exception e){
-                System.out.println("Error");
-            }
 	}
         
         public void updateSucursal( String id, String nombre){

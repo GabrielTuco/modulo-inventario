@@ -12,9 +12,6 @@ public class Stock {
 	String idSucursal;
 	public static List<Stock> listaStocks;
         
-        
-        
-        
 	public Stock(Producto idProducto,float precioProducto, int cantidad, String idSucursal) {
             this.producto = idProducto;
             this.precioProducto = precioProducto;
