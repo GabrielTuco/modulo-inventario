@@ -38,22 +38,7 @@ public class Producto {
             System.out.println(e);
         }
     }
-
-    public void updateProducto( String id, String nombre, String fechI){
-        id= id==null?this.idProducto:id;
-        nombre= nombre==null?this.nameProducto:nombre;
-        fechI= fechI==null?this.fechaIngreso:fechI;
-        Statement st;
-        try {
-            st = Conexion.con.createStatement();
-            st.executeQuery("update producto set idProducto='"+id+"' nameProducto='"+nombre+"' fechaIngreso='"+fechI+"'");
-            
-
-        } catch (Exception e){
-            System.out.println(e);
-        }
-    }
-    
+   
     public static void listarProductos(){
         
         listaProductos= new ArrayList<Producto>();
