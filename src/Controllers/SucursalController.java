@@ -3,16 +3,22 @@ import Models.Proveedor;
 import Models.Sucursal;
 import Views.userinterface.CVSadmin.AddProductSucursal;
 import Views.userinterface.CVSadmin.AddSucursal;
+import Views.userinterface.CVSadmin.DialogueBoxPopUp;
 import Views.userinterface.CVSadmin.ListaProductos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
+
 public class SucursalController {
     
     ListaProductos listProd;
     AddSucursal addSuc;
     DefaultComboBoxModel model; 
+    Sucursal sucur;
+    DialogueBoxPopUp dialog;
     
     public SucursalController(ListaProductos _listProd){
         this.listProd = _listProd;
@@ -34,6 +40,24 @@ public class SucursalController {
         });
         this.addSuc.createSucursal.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
+                String nombre = addSuc.Fieldnombre.getText();
+                int aux=0;
+                int cont = 3;
+                while (aux != 1){
+                    if(sucur.sucursalEnBD(nombre)==false && true==validarSucursal(nombre)){
+                        aux=1; 
+                    }
+                    else{
+                        dialog.mensaje(cont);
+                        addSuc.Fieldnombre.setText("");
+                        addSuc.show();
+                    }
+                    if (cont == 0){
+                        System.exit(0);
+                    }
+                    cont--;
+                }
+        
                 addSucursal();
                 
                 llenarOpciones();
@@ -56,7 +80,36 @@ public class SucursalController {
     public void addSucursal(){
         String idSuc = this.getNewId(),
                nombre = addSuc.Fieldnombre.getText();
+        
         Sucursal.agregarSucursal(idSuc, nombre);
+    }
+    
+    public boolean validarSucursal(String cadena){
+        int valorASCII= 0;
+        int cont = 0;
+        int j= 0;
+        for (j = 0 ; j <= cont; j++){
+           if(cont>0){
+               cont = 0;
+           }
+           for (int i = 0 ; i < cadena.length(); i++){
+               char caracter = cadena.charAt(i);
+               valorASCII = (int) caracter;
+               if (valorASCII < 97 || valorASCII >122){
+                   cont++;
+               }
+ 
+           }
+           if (cont == 0){
+               return true;//No hay errores
+           }
+           else {
+               return false;// Hay errores
+           }
+           
+        }
+        return false;
+      
     }
     private String getNewId(){
         

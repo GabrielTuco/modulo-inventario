@@ -17,7 +17,36 @@ public class Proveedor {
             this.nameProveedor = nameProveedor;
           
 	}
-        
+	public Proveedor(int id ) {
+            
+            Statement st;//
+            ResultSet rs;//
+            try {
+                st = Conexion.con.createStatement();
+                rs = st.executeQuery("select * from proveedor where idProveedor='"+id+"'");
+                this.idProveedor=rs.getString("idProveedor");
+                this.nameProveedor=rs.getString("nameProveedor");
+                
+
+            } catch (Exception e){
+                System.out.println("Error");
+            }
+	}
+        /*
+        public void updateProveedor( String id, String nombre){
+            id= id==null?this.idProveedor:id;
+            nombre= nombre==null?this.nameProveedor:nombre;
+            Statement st;
+            try {
+                st = Conexion.con.createStatement();
+                st.executeQuery("update proveedor set idProveedor='"+id+"' nameProveedor='"+nombre+"'");
+                
+
+            } catch (Exception e){
+                System.out.println("Error");
+            }
+        }*/
+    
         public static void listarProveedor(){
             listaProveedores= new ArrayList<Proveedor>();
             Statement st;
@@ -34,7 +63,6 @@ public class Proveedor {
                 System.out.println("Error");
             }
         }
-        
         public static void agregarProveedor(String idProveedor,String nameProveedor){
             PreparedStatement ps;
         
@@ -48,6 +76,28 @@ public class Proveedor {
             } catch (Exception e){
                 System.out.println(e);
             }
+        }
+        
+        public boolean proveedorEnBD(String nameProveedor){
+            PreparedStatement ps;
+            
+            try{
+               
+                
+                Statement consulta=Conexion.con.createStatement();
+                ResultSet registro=consulta.executeQuery("select nameProveedor "
+                        +"from proveedor where nameProveedor="
+                        +nameProveedor);
+                if(registro.next()){
+                    String nom=registro.getString("nameProveedor");
+                    return true;
+                 }else{
+                    return false;
+                }
+            } catch (Exception e){
+                System.out.println(e);
+            }
+            return false;
         }
         
 	public String getIdProveedor() {
