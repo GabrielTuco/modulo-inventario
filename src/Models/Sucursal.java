@@ -10,8 +10,6 @@ public class Sucursal {
 	String idSucursal;
 	String nombreSucursal;
 	public static List<Sucursal> listaSucursales;
-       
-        
      
 	public Sucursal(String idSucursal, String nombreSucursal) {
             this.idSucursal = idSucursal;
@@ -33,20 +31,6 @@ public class Sucursal {
                 System.out.println("Error");
             }
 	}
-        
-        public void updateSucursal( String id, String nombre){
-            id= id==null?this.idSucursal:id;
-            nombre= nombre==null?this.nombreSucursal:nombre;
-            Statement st;
-            try {
-                st = Conexion.con.createStatement();
-                st.executeQuery("update sucursal set idSucursal='"+id+"' nombreSucursal='"+nombre+"'");
-             
-
-            } catch (Exception e){
-                System.out.println("Error");
-            }
-        }
     
         public static void listarSucursal(){
             listaSucursales= new ArrayList<Sucursal>();
@@ -79,25 +63,14 @@ public class Sucursal {
             }
         }
         
-        public boolean sucursalEnBD(String nombreSucursal1){
-            PreparedStatement ps;
-            
-            try{
-               
-                Statement consulta=Conexion.con.createStatement();
-                ResultSet registro=consulta.executeQuery("select nombreSucursal "
-                        +"from sucursal where nombreSucursal="
-                        +nombreSucursal1);
-                if(registro.next()){
-                    String nom=registro.getString("nombreSucursal");
+        public static boolean  sucursalEnBD(String nombreSucursal1){
+            for(Sucursal s : listaSucursales){
+                if (s.getNombreSucursal().equals(nombreSucursal1)){
                     return true;
-                 }else{
-                    return false;
                 }
-            } catch (Exception e){
-                System.out.println(e);
             }
             return false;
+            
         }
         
         

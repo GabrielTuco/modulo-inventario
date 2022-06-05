@@ -10,6 +10,8 @@ import Views.userinterface.CVSadmin.DialogueBoxPopUp;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.DefaultComboBoxModel;
@@ -39,6 +41,7 @@ public class ProductoController {
 
         this.conProv = new ProveedorController(this.addProd);
         this.conProv.llenarOpciones();
+        this.dialog= new DialogueBoxPopUp();
 
         listProd.BotaddProduct.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
@@ -59,35 +62,40 @@ public class ProductoController {
         });
         this.addProd.createProduct.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
-                String nombre = addProdNom.Fieldnombre.getText();
-                int aux=0;
-                int cont = 3;
-                while (aux != 1){
-                    if(validarProducto(nombre)){
-                        aux=1; 
-                    }
-                    else{
-                        dialog.mensaje(cont);
-                        addProdNom.Fieldnombre.setText("");
-                        addProdNom.show();
-                    }
-                    if (cont == 0){
-                        System.exit(0);
-                    }
-                    cont--;
+                if(!validarCamposLlenos()){
+                    dialog.mensaje("Debe llenar todos los campos");
                 }
-                addProduct();
-                addProd.dispose();
+                else if (!validarPrecio()){
+                    dialog.mensaje("El precio debe ser un numero");
+                }else if (!validarCantidad()){
+                    dialog.mensaje("La cantidad debe ser un numero entero");
+                }else{
+                    addProduct();
+                    addProd.dispose();
+                }
+                
             }
         });
-        this.addProd.jCheckBox1.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) {
-                if(addProd.jCheckBox1.isSelected()){
-                    addProd.FieldPrecio.setEditable(false);
-                    addProd.FieldPrecio.setBackground(new Color(190,190,190));
-                }else{
-                    addProd.FieldPrecio.setEditable(true);
-                    addProd.FieldPrecio.setBackground(new Color(235,237,255));
+        this.addProd.Fieldnombre.addItemListener(new ItemListener() {
+             public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    
+                    if(!addProd.Fieldnombre.getSelectedItem().toString().equals("-")){
+                        
+                        for(Stock s: Stock.listaStocks){
+                            if(s.getProducto().getNameProducto().equals(addProd.Fieldnombre.getSelectedItem().toString())){
+                                addProd.FieldPrecio.setEditable(false);
+                                addProd.FieldPrecio.setBackground(new Color(190,190,190));
+                                return;
+                            }
+                            
+                        }
+                        addProd.FieldPrecio.setEditable(true);
+                        addProd.FieldPrecio.setBackground(new Color(235,237,255));
+                    }else{
+                        addProd.FieldPrecio.setEditable(true);
+                        addProd.FieldPrecio.setBackground(new Color(235,237,255));
+                    }
                 }
             }
         });
@@ -108,11 +116,21 @@ public class ProductoController {
         });
         this.addProdNom.createProduct.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
-                modelNameProd = new DefaultComboBoxModel();
-                llenarOpciones();
-                modelNameProd.addElement(addProdNom.Fieldnombre.getText());
-                addProd.Fieldnombre.setSelectedIndex(modelNameProd.getSize()-1);
-                addProdNom.dispose();
+                String nombre = addProdNom.Fieldnombre.getText();
+                if(nombre.equals("")){
+                    dialog.mensaje("Debe llenar todos los campos");
+                }else if(Producto.productoEnBD(nombre)==true){
+                    dialog.mensaje("El nombre ya existe");
+                }
+                else if (!validarProducto(nombre)){
+                    dialog.mensaje("Nombre incorrecto: no ingresar caracteres especiales");
+                }else{
+                    modelNameProd = new DefaultComboBoxModel();
+                    llenarOpciones();
+                    modelNameProd.addElement(addProdNom.Fieldnombre.getText());
+                    addProd.Fieldnombre.setSelectedIndex(modelNameProd.getSize()-1);
+                    addProdNom.dispose();
+                }
             }
         });
 
@@ -120,32 +138,55 @@ public class ProductoController {
         llenarOpciones();
 
     }
-
-     public boolean validarProducto(String cadena){
+    public boolean validarCamposLlenos(){
+        if(this.addProd.Fieldnombre.getSelectedItem().toString().equals("-") || this.addProd.FieldPrecio.getText().equals("") || this.addProd.FieldStock.getText().equals("")){
+            return false;
+        }
+        return true;
+    }
+    public boolean validarPrecio(){
+        String cadena = addProd.FieldPrecio.getText();
         int valorASCII= 0;
-        int cont = 0;
-        int j= 0;
-        for (j = 0 ; j <= cont; j++){
-           if(cont>0){
-               cont = 0;
-           }
-           for (int i = 0 ; i < cadena.length(); i++){
-               char caracter = cadena.charAt(i);
-               valorASCII = (int) caracter;
-               if (valorASCII < 97 || valorASCII >122){
-                   cont++;
-               }
-
-           }
-           if (cont == 0){
-               return true;//No hay errores
-           }
-           else {
-               return false;// Hay errores
-           }
+        for (int i = 0 ; i < cadena.length(); i++){
+            char caracter = cadena.charAt(i);
+            valorASCII = (int) caracter;
+            
+            if ((valorASCII < 48 || valorASCII >57)  && valorASCII != 46){
+               return false;
+            }
 
         }
-        return false;
+        return true;
+
+    }
+    public boolean validarCantidad(){
+        String cadena = addProd.FieldStock.getText();
+        int valorASCII= 0;
+        for (int i = 0 ; i < cadena.length(); i++){
+            char caracter = cadena.charAt(i);
+            valorASCII = (int) caracter;
+            
+            if ((valorASCII < 48 || valorASCII >57)){
+               return false;
+            }
+
+        }
+        return true;
+
+    }
+    
+    public boolean validarProducto(String cadena){
+        int valorASCII= 0;
+        for (int i = 0 ; i < cadena.length(); i++){
+            char caracter = cadena.charAt(i);
+            valorASCII = (int) caracter;
+            
+            if ((valorASCII < 97 || valorASCII >122) && (valorASCII < 65 || valorASCII >90) &&(valorASCII < 48 || valorASCII >57) && valorASCII != 241 && valorASCII != 209 && valorASCII != 32 && valorASCII != 40 && valorASCII != 41 && valorASCII != 46 && valorASCII != 45){
+               return false;
+            }
+
+        }
+        return true;
 
     }
 

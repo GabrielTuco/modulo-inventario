@@ -6,6 +6,8 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
 public class Producto {
+
+    
     String idProducto;
     String nameProducto;
     String fechaIngreso;
@@ -19,39 +21,6 @@ public class Producto {
         this.fechaIngreso = fechaIngreso;
         this.idProveedor = idProveedor;
         
-    }
-   
-    public Producto(String id) {
-        
-        Statement st;//
-        ResultSet rs;//
-        try {
-            st = Conexion.con.createStatement();
-            rs = st.executeQuery("select * from producto where idProducto='"+id+"'");
-            this.idProducto=rs.getString("idProducto");
-            this.nameProducto=rs.getString("nameProducto");
-            this.fechaIngreso=rs.getString("fechaIngreso");
-            this.idProveedor=rs.getString("idProveedor");
-            
-
-        } catch (Exception e){
-            System.out.println(e);
-        }
-    }
-
-    public void updateProducto( String id, String nombre, String fechI){
-        id= id==null?this.idProducto:id;
-        nombre= nombre==null?this.nameProducto:nombre;
-        fechI= fechI==null?this.fechaIngreso:fechI;
-        Statement st;
-        try {
-            st = Conexion.con.createStatement();
-            st.executeQuery("update producto set idProducto='"+id+"' nameProducto='"+nombre+"' fechaIngreso='"+fechI+"'");
-            
-
-        } catch (Exception e){
-            System.out.println(e);
-        }
     }
     
     public static void listarProductos(){
@@ -104,6 +73,17 @@ public class Producto {
         } catch (Exception e){
             System.out.println(e);
         }
+    }
+    
+    public static boolean productoEnBD(String nombre) {
+        for(Producto s : listaProductos){
+                if (s.getNameProducto().equals(nombre)){
+                    return true;
+                }
+            }
+            return false;
+            
+        
     }
    
     public String getIdProducto() {

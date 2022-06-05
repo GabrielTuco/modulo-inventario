@@ -17,13 +17,14 @@ public class SucursalController {
     ListaProductos listProd;
     AddSucursal addSuc;
     DefaultComboBoxModel model; 
-    Sucursal sucur;
+   
     DialogueBoxPopUp dialog;
     
     public SucursalController(ListaProductos _listProd){
         this.listProd = _listProd;
         addSuc = new AddSucursal();
         addSuc.setLocationRelativeTo(null);
+        this.dialog= new DialogueBoxPopUp();
         this.listProd.addSucursal.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
                 addSuc.Fieldnombre.setText("");
@@ -41,30 +42,20 @@ public class SucursalController {
         this.addSuc.createSucursal.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
                 String nombre = addSuc.Fieldnombre.getText();
-                int aux=0;
-                int cont = 3;
-                while (aux != 1){
-                    if(sucur.sucursalEnBD(nombre)==false && true==validarSucursal(nombre)){
-                        aux=1; 
-                    }
-                    else{
-                        dialog.mensaje(cont);
-                        addSuc.Fieldnombre.setText("");
-                        addSuc.show();
-                    }
-                    if (cont == 0){
-                        System.exit(0);
-                    }
-                    cont--;
+                if(!validarCamposLlenos()){
+                    dialog.mensaje("Debe llenar todos los campos");
+                }else if(Sucursal.sucursalEnBD(nombre)==true){
+                    dialog.mensaje("El nombre ya existe");
                 }
-        
-                addSucursal();
-                
-                llenarOpciones();
-                
-                addSuc.dispose();
-                listProd.storeJComboBox.setSelectedIndex(model.getSize()-1);
-                addSuc.dispose();
+                else if (!validarSucursal(nombre)){
+                    dialog.mensaje("Nombre incorrecto: no ingresar caracteres especiales");
+                }else{
+                    addSucursal();
+                    llenarOpciones();
+                    addSuc.dispose();
+                    listProd.storeJComboBox.setSelectedIndex(model.getSize()-1);
+                    addSuc.dispose();
+                }
             }
         });
     }
@@ -86,30 +77,24 @@ public class SucursalController {
     
     public boolean validarSucursal(String cadena){
         int valorASCII= 0;
-        int cont = 0;
-        int j= 0;
-        for (j = 0 ; j <= cont; j++){
-           if(cont>0){
-               cont = 0;
-           }
-           for (int i = 0 ; i < cadena.length(); i++){
-               char caracter = cadena.charAt(i);
-               valorASCII = (int) caracter;
-               if (valorASCII < 97 || valorASCII >122){
-                   cont++;
-               }
- 
-           }
-           if (cont == 0){
-               return true;//No hay errores
-           }
-           else {
-               return false;// Hay errores
-           }
+        for (int i = 0 ; i < cadena.length(); i++){
+            char caracter = cadena.charAt(i);
+            valorASCII = (int) caracter;
            
+            if ((valorASCII < 97 || valorASCII >122) && (valorASCII < 65 || valorASCII >90) &&(valorASCII < 48 || valorASCII >57) && valorASCII != 241 && valorASCII != 209 && valorASCII != 32){
+               return false;
+            }
+
         }
-        return false;
+        return true;
+        
       
+    }
+    public boolean validarCamposLlenos(){
+        if(addSuc.Fieldnombre.getText().equals("")){
+            return false;
+        }
+        return true;
     }
     private String getNewId(){
         

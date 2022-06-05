@@ -21,6 +21,7 @@ public class ProveedorController {
         this.listProv = _listProv;
         this.addprov = new AddProveedor();
         this.addprov.setLocationRelativeTo(null);
+        this.dialog= new DialogueBoxPopUp();
         this.listProv.addProveedor.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
                 addprov.Fieldnombre.setText("");
@@ -37,29 +38,21 @@ public class ProveedorController {
         this.addprov.createProduct.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
                 String nombre = addprov.Fieldnombre.getText();
-                int aux=0;
-                int cont = 3;
-                while (aux != 1){
-                    if(prove.proveedorEnBD(nombre)==false && true==validarProveedor(nombre)){
-                        aux=1; 
-                    }
-                    else{
-                        dialog.mensaje(cont);
-                        addprov.Fieldnombre.setText("");
-                        addprov.show();
-                    }
-                    if (cont == 0){
-                        System.exit(0);
-                    }
-                    cont--;
+                if(!validarCamposLlenos()){
+                    dialog.mensaje("Debe llenar todos los campos");
+                }else if(Proveedor.proveedorEnBD(nombre)==true){
+                    dialog.mensaje("El nombre ya existe");
                 }
-                addProveedor();
-                model = new DefaultComboBoxModel();
-                llenarOpciones();
-                model.addElement(addprov.Fieldnombre.getText());
-                addprov.dispose();
-                listProv.proveedores.setSelectedIndex(model.getSize()-1);
-                
+                else if (!validarProveedor(nombre)){
+                    dialog.mensaje("Nombre incorrecto: no ingresar caracteres especiales");
+                }else{
+                    addProveedor();
+                    model = new DefaultComboBoxModel();
+                    llenarOpciones();
+                    model.addElement(addprov.Fieldnombre.getText());
+                    addprov.dispose();
+                    listProv.proveedores.setSelectedIndex(model.getSize()-1);
+                }
             }
         });
     }
@@ -82,31 +75,24 @@ public class ProveedorController {
     }
     
     public boolean validarProveedor(String cadena){
-        int valorASCII= 0;
-        int cont = 0;
-        int j= 0;
-        for (j = 0 ; j <= cont; j++){
-           if(cont>0){
-               cont = 0;
-           }
-           for (int i = 0 ; i < cadena.length(); i++){
-               char caracter = cadena.charAt(i);
-               valorASCII = (int) caracter;
-               if (valorASCII < 97 || valorASCII >122){
-                   cont++;
-               }
- 
-           }
-           if (cont == 0){
-               return true;//No hay errores
-           }
-           else {
-               return false;// Hay errores
-           }
+       int valorASCII= 0;
+        for (int i = 0 ; i < cadena.length(); i++){
+            char caracter = cadena.charAt(i);
+            valorASCII = (int) caracter;
            
+            if ((valorASCII < 97 || valorASCII >122) && (valorASCII < 65 || valorASCII >90) &&(valorASCII < 48 || valorASCII >57) && valorASCII != 241 && valorASCII != 209 && valorASCII != 32){
+               return false;
+            }
+
         }
-        return false;
+        return true;
       
+    }
+    public boolean validarCamposLlenos(){
+        if(addprov.Fieldnombre.getText().equals("")){
+            return false;
+        }
+        return true;
     }
     private String getNewId(){
         
