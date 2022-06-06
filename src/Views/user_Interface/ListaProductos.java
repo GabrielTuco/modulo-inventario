@@ -1,4 +1,4 @@
-package Views.userinterface.CVSadmin;
+package Views.user_Interface;
 
 
 import java.awt.CardLayout;

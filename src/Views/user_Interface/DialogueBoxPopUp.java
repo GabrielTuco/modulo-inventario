@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package Views.userinterface.CVSadmin;
+package Views.user_Interface;
 
 import javax.swing.*;
 /**

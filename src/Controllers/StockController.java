@@ -3,7 +3,7 @@ import Models.Producto;
 import Models.Proveedor;
 import Models.Stock;
 import Models.Sucursal;
-import Views.userinterface.CVSadmin.ListaProductos;
+import Views.user_Interface.ListaProductos;
 import java.awt.event.ItemEvent;
 
 import java.awt.event.ItemListener;

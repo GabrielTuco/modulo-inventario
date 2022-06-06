@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Views.userinterface.CVSadmin;
+package Views.user_Interface;
 
 import javax.swing.JFrame;
 
@@ -10,12 +10,12 @@ import javax.swing.JFrame;
  *
  * @author gabri
  */
-public class AddSucursal extends javax.swing.JFrame {
+public class AddProduct extends javax.swing.JFrame {
 
     /**
-     * Creates new form AddSucursal
+     * Creates new form addProduct
      */
-    public AddSucursal() {
+    public AddProduct() {
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -30,7 +30,7 @@ public class AddSucursal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        createSucursal = new javax.swing.JButton();
+        createProduct = new javax.swing.JButton();
         BotAtras = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -41,10 +41,10 @@ public class AddSucursal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(7, 7, 32));
         jPanel1.setForeground(new java.awt.Color(235, 204, 204));
 
-        createSucursal.setBackground(new java.awt.Color(0, 153, 153));
-        createSucursal.setForeground(new java.awt.Color(255, 255, 255));
-        createSucursal.setText("Crear");
-        createSucursal.setToolTipText("");
+        createProduct.setBackground(new java.awt.Color(0, 153, 153));
+        createProduct.setForeground(new java.awt.Color(255, 255, 255));
+        createProduct.setText("Crear");
+        createProduct.setToolTipText("");
 
         BotAtras.setBackground(new java.awt.Color(243, 44, 44));
         BotAtras.setForeground(new java.awt.Color(255, 255, 255));
@@ -52,7 +52,7 @@ public class AddSucursal extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Nueva Sucursal");
+        jLabel12.setText("Nuevo Nombre Producto");
         jLabel12.setToolTipText("");
 
         jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -66,36 +66,35 @@ public class AddSucursal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
+                    .addComponent(jLabel12)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
                             .addComponent(BotAtras))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(Fieldnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(createSucursal)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jLabel12)))
-                .addContainerGap(52, Short.MAX_VALUE))
+                            .addComponent(createProduct))
+                        .addGap(22, 22, 22)))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel12)
-                .addGap(31, 31, 31)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(Fieldnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(createSucursal)
+                            .addComponent(createProduct)
                             .addComponent(BotAtras)))
                     .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,20 +128,21 @@ public class AddSucursal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddSucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddSucursal().setVisible(true);
+                new AddProduct().setVisible(true);
             }
         });
     }
@@ -150,7 +150,7 @@ public class AddSucursal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton BotAtras;
     public javax.swing.JTextField Fieldnombre;
-    public javax.swing.JButton createSucursal;
+    public javax.swing.JButton createProduct;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JPanel jPanel1;
