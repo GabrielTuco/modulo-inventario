@@ -18,6 +18,7 @@ public class ListaProductos extends javax.swing.JPanel {
 
     public ListaProductos(JPanel userProcessContainer) {
         initComponents();
+       productsTable.setEnabled(false);
        
         this.userProcessContainer = userProcessContainer;
         BotaddProduct.setBorder(new RoundedBorder(10));

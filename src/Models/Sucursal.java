@@ -63,9 +63,9 @@ public class Sucursal {
             }
         }
         
-        public static boolean  sucursalEnBD(String nombreSucursal1){
+        public static boolean  sucursalEnBD(String nombreSucursal){
             for(Sucursal s : listaSucursales){
-                if (s.getNombreSucursal().equals(nombreSucursal1)){
+                if (s.getNombreSucursal().toLowerCase().equals(nombreSucursal.toLowerCase())){
                     return true;
                 }
             }

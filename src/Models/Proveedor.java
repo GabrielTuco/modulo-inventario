@@ -50,7 +50,7 @@ public class Proveedor {
         
         public static boolean proveedorEnBD(String nameProveedor){
             for(Proveedor s : listaProveedores){
-                if (s.getNameProveedor().equals(nameProveedor)){
+                if (s.getNameProveedor().toLowerCase().equals(nameProveedor.toLowerCase())){
                     return true;
                 }
             }

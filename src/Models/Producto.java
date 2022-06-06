@@ -77,7 +77,7 @@ public class Producto {
     
     public static boolean productoEnBD(String nombre) {
         for(Producto s : listaProductos){
-                if (s.getNameProducto().equals(nombre)){
+                if (s.getNameProducto().toLowerCase().equals(nombre.toLowerCase())){
                     return true;
                 }
             }

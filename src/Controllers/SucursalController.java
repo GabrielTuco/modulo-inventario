@@ -84,6 +84,11 @@ public class SucursalController {
             if ((valorASCII < 97 || valorASCII >122) && (valorASCII < 65 || valorASCII >90) &&(valorASCII < 48 || valorASCII >57) && valorASCII != 241 && valorASCII != 209 && valorASCII != 32){
                return false;
             }
+            if(i<4){
+                if((valorASCII < 97 || valorASCII >122) && (valorASCII < 65 || valorASCII >90)){
+                    return false;
+                }
+            }
 
         }
         return true;
